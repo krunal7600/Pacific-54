@@ -32,7 +32,7 @@ public class SignUpPageObjects {
     @FindBy(xpath = "//div[contains(text(),'last name')]")
     public WebElement LastNameValidation;
 
-    @FindBy(xpath = "//input[@inputmode='numeric']")
+    @FindBy(xpath = "//input[@name='phone']")
     public WebElement PhoneNumber;
 
     @FindBy(xpath = "//div[contains(text(),'phone number')]")
