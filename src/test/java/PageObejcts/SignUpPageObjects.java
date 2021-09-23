@@ -83,6 +83,6 @@ public class SignUpPageObjects {
     @FindBy(xpath = "//input[@id='customized-hook-demo']")
     public WebElement abc;
 
-    @FindBy(xpath = "//input[@id='customized-hook-demo']//ul[contain(text(),'Dictum nulla sea')]")
+    @FindBy(xpath = "//input[@aria-activedescendant='customized-hook-demo-option-0']")
     public WebElement abc1;
 }
