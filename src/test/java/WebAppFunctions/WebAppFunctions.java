@@ -96,7 +96,7 @@ public class WebAppFunctions {
         signUpPageObjects.Password.sendKeys("123456789012");
         signUpPageObjects.ConfirmPassword.sendKeys("123456789012");
         signUpPageObjects.AcceptTerms.click();
-        //Thread.sleep(3000);
+        Thread.sleep(3000);
         signUpPageObjects.SignUP.click();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         signUpPageObjects.OTPConfirmEmail.sendKeys("12345");
