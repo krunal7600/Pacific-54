@@ -100,6 +100,11 @@ public class WebAppFunctions {
         signUpPageObjects.SignUP.click();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         signUpPageObjects.OTPConfirmEmail.sendKeys("12345");
+        signUpPageObjects.VerifyEmailANDContinue.click();
+        Thread.sleep(3000);
+        signUpPageObjects.abc.click();
+        Thread.sleep(5000);
+        signUpPageObjects.abc1.click();
     }
 
     public void SignUpValidation()

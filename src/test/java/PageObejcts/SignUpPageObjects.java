@@ -76,4 +76,13 @@ public class SignUpPageObjects {
 
     @FindBy(xpath = "//li[@class='form-otp']/div/div/input")
     public WebElement OTPConfirmEmail;
+
+    @FindBy(xpath = "//button[contains(text(),'Verify my email & continue')]")
+    public WebElement VerifyEmailANDContinue;
+
+    @FindBy(xpath = "//input[@id='customized-hook-demo']")
+    public WebElement abc;
+
+    @FindBy(xpath = "//input[@id='customized-hook-demo']//ul[@id='customized-hook-demo-popup][1]")
+    public WebElement abc1;
 }
