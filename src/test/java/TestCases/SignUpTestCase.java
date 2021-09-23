@@ -7,8 +7,7 @@ import org.testng.annotations.Test;
 public class SignUpTestCase extends BaseClass {
 
     @Test
-    public void signUpSuccessTestCase()
-    {
+    public void signUpSuccessTestCase() throws InterruptedException {
         WebAppFunctions webAppFunctions = new WebAppFunctions(webDriver);
         webAppFunctions.SignUpSuccess();
     }

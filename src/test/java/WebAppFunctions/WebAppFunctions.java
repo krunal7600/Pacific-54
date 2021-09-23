@@ -6,7 +6,6 @@ import PageObejcts.SignUpPageObjects;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 
-import java.util.SplittableRandom;
 import java.util.concurrent.TimeUnit;
 
 public class WebAppFunctions {
@@ -17,31 +16,30 @@ public class WebAppFunctions {
         driver = remoteDriver;
     }
 
-    public void LoginSuccess()
-    {
+    public void LoginSuccess() throws InterruptedException {
         LoginPageObjects loginPageObjects = new LoginPageObjects(driver);
 
         loginPageObjects.LoginEmail.sendKeys("parekhkrunal@gmail.com");
         loginPageObjects.LoginPass.sendKeys("123456789012");
+        Thread.sleep(3000);
         loginPageObjects.LoginButton.click();
     }
 
-    public void LoginValidations()
-    {
+    public void LoginValidations() throws InterruptedException {
         LoginPageObjects loginPageObjects = new LoginPageObjects(driver);
 
         loginPageObjects.LoginButton.click();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        String unfilledEmail = loginPageObjects.LoginEmailUnfilledValidation.getText();
-        String unfilledPass = loginPageObjects.LoginPassUnfilledValidation.getText();
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        Assert.assertTrue(loginPageObjects.LoginEmailUnfilledValidation.getText().equals("Please enter an email address."));
+        Assert.assertTrue(loginPageObjects.LoginPassUnfilledValidation.getText().equals("Please enter a password."));
+        Thread.sleep(3000);
         loginPageObjects.LoginEmail.sendKeys("krunalparekh");
-        String invalidEmail = loginPageObjects.LoginEmailValidationMSG.getText();
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        loginPageObjects.LoginPass.sendKeys("1234567890");
-        String invalidPass = loginPageObjects.LoginPassValidation.getText();
+        Assert.assertTrue(loginPageObjects.LoginEmailValidationMSG.getText().equals("Please enter a valid email address."));
+        Thread.sleep(3000);
 
-        System.out.println(unfilledEmail + unfilledPass + invalidEmail + invalidPass);
+        loginPageObjects.LoginPass.sendKeys("1234567890");
+        Assert.assertTrue(loginPageObjects.LoginPassValidation.getText().equals("Please enter a new password between 12 and 64 characters."));
+        Thread.sleep(3000);
 
         loginPageObjects.LoginButton.click();
 
@@ -68,39 +66,37 @@ public class WebAppFunctions {
         forgotAndResetPassPageObjects.ForgotPassword.click();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         forgotAndResetPassPageObjects.SendLinkButton.click();
-        String unfilledEmail = forgotAndResetPassPageObjects.ResetPassUnfilledEmailValidation.getText();
+        Assert.assertTrue(forgotAndResetPassPageObjects.ResetPassUnfilledEmailValidation.getText().equals("Please enter an email address."));
         forgotAndResetPassPageObjects.ResetPasswordEMAIL.sendKeys("parekhkrunal");
-        String invalidEmail = forgotAndResetPassPageObjects.ResetPassEmailValidation.getText();
+        Assert.assertTrue(forgotAndResetPassPageObjects.ResetPassEmailValidation.getText().equals("Please enter a valid email address."));
         forgotAndResetPassPageObjects.ResetPasswordEMAIL.sendKeys("parekhkrunal@gmail.com");
         forgotAndResetPassPageObjects.SendLinkButton.click();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 
         forgotAndResetPassPageObjects.ConfirmButton.click();
-        String unfilledNewPass = forgotAndResetPassPageObjects.CreateNewPasswordUnfilledValidation.getText();
-        String unfilledConfirmPass = forgotAndResetPassPageObjects.ConfirmPasswordUnfilledValidation.getText();
+        Assert.assertTrue(forgotAndResetPassPageObjects.CreateNewPasswordUnfilledValidation.getText().equals("Please enter a new password."));
+        Assert.assertTrue(forgotAndResetPassPageObjects.ConfirmPasswordUnfilledValidation.getText().equals("Please confirm your new password."));
+
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         forgotAndResetPassPageObjects.ResetPasswordNEWPASSWORD.sendKeys("1234567890");
-        String invalidNewPass = forgotAndResetPassPageObjects.CreateNewPasswordValidation.getText();
+        Assert.assertTrue(forgotAndResetPassPageObjects.CreateNewPasswordValidation.getText().equals("Please enter a new password between 12 and 64 characters."));
         forgotAndResetPassPageObjects.ResetPasswordCONFIRMPASSWORD.sendKeys("123456789");
-        String invaliConfirmPass = forgotAndResetPassPageObjects.ConfirmPasswordMATCHValidation.getText();
-
-        System.out.println(unfilledEmail + invalidEmail + unfilledNewPass + unfilledConfirmPass + invalidNewPass + invaliConfirmPass);
-
+        Assert.assertTrue(forgotAndResetPassPageObjects.ConfirmPasswordMATCHValidation.getText().equals("Passwords must match."));
     }
 
-    public void SignUpSuccess()
-    {
+    public void SignUpSuccess() throws InterruptedException {
         SignUpPageObjects signUpPageObjects = new SignUpPageObjects(driver);
 
         signUpPageObjects.SignUpFormOpen.click();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         signUpPageObjects.FirstName.sendKeys("Krunal");
-        signUpPageObjects.LastName.sendKeys("Parekh'");
+        signUpPageObjects.LastName.sendKeys("Parekh");
         signUpPageObjects.PhoneNumber.sendKeys("1234567890");
         signUpPageObjects.Email.sendKeys("parekhkruna@gmail.com");
         signUpPageObjects.Password.sendKeys("123456789012");
         signUpPageObjects.ConfirmPassword.sendKeys("123456789012");
         signUpPageObjects.AcceptTerms.click();
+        Thread.sleep(3000);
         signUpPageObjects.SignUP.click();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         signUpPageObjects.OTPConfirmEmail.sendKeys("12345");
@@ -113,26 +109,22 @@ public class WebAppFunctions {
         signUpPageObjects.SignUpFormOpen.click();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         signUpPageObjects.SignUP.click();
-        String unfilledFirstname = signUpPageObjects.FirstNameValidation.getText();
-        //String unfilledLastName = signUpPageObjects.LastNameValidation.getText();
-        String unfilledPhoneNumber = signUpPageObjects.PhoneNumberValidation.getText();
-
-        String unfilledEmail = signUpPageObjects.UnfilledEmailValidation.getText();
-        signUpPageObjects.Email.sendKeys("krunalparekh");
-        String invalidEmail = signUpPageObjects.EmailValidation.getText();
-
-        String unfilledPassword = signUpPageObjects.NewPasswordUnfilledValidation.getText();
-        signUpPageObjects.Password.sendKeys("1234567890");
-        String invalidPassword = signUpPageObjects.NewPasswordValidation.getText();
-
-        String unfilledConfirmPassword = signUpPageObjects.ConfirmPasswordUnfilledValidationForSignUP.getText();
-        signUpPageObjects.ConfirmPassword.sendKeys("123456789");
-        String invalidConfirmPassword = signUpPageObjects.ConfirmPasswordMATCHValidationForSignUP.getText();
-
-        String unfilledTearmCondition = signUpPageObjects.AcceptTearmsValidation.getText();
-        System.out.println(unfilledFirstname + /*unfilledLastName +*/ unfilledPhoneNumber + unfilledEmail + invalidEmail + unfilledPassword + invalidPassword + unfilledConfirmPassword + invalidConfirmPassword + unfilledTearmCondition);
-
-        Assert.assertTrue(unfilledFirstname.equals("Please enter a first name."));
+        Assert.assertTrue(signUpPageObjects.FirstNameValidation.getText().equals("Please enter a first name."));
         Assert.assertTrue(signUpPageObjects.LastNameValidation.getText().equals("Please enter a last name."));
+        Assert.assertTrue(signUpPageObjects.PhoneNumberValidation.getText().equals("Please enter a phone number."));
+
+        Assert.assertTrue(signUpPageObjects.UnfilledEmailValidation.getText().equals("Please enter an email address."));
+        signUpPageObjects.Email.sendKeys("krunalparekh");
+        Assert.assertTrue(signUpPageObjects.EmailValidation.getText().equals("Please enter a valid email address."));
+
+        Assert.assertTrue(signUpPageObjects.NewPasswordUnfilledValidation.getText().equals("Please enter a new password."));
+        signUpPageObjects.Password.sendKeys("1234567890");
+        Assert.assertTrue(signUpPageObjects.NewPasswordValidation.getText().equals("Please enter a new password between 12 and 64 characters."));
+
+        Assert.assertTrue(signUpPageObjects.ConfirmPasswordUnfilledValidationForSignUP.getText().equals("Please confirm your new password."));
+        signUpPageObjects.ConfirmPassword.sendKeys("123456789");
+        Assert.assertTrue(signUpPageObjects.ConfirmPasswordMATCHValidationForSignUP.getText().equals("Passwords must match"));
+
+        Assert.assertTrue(signUpPageObjects.AcceptTearmsValidation.getText().equals("You must agree with our terms and conditions."));
     }
 }
